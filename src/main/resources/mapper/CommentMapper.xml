@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bx.mapper.CommentMapper">
+
+    <sql id="Base_Column_List">
+        id,content,user_id,pid,root_id,create_time,update_time,fid,module
+    </sql>
+
+    <!-- 新增评论 -->
+    <insert id="insert" parameterType="com.bx.entity.Comment" useGeneratedKeys="true" keyProperty="id">
+        insert into comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="content != null">content,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="pid != null">pid,</if>
+            <if test="rootId != null">root_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="fid != null">fid,</if>
+            <if test="module != null">module,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="content != null">#{content},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="pid != null">#{pid},</if>
+            <if test="rootId != null">#{rootId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="fid != null">#{fid},</if>
+            <if test="module != null">#{module},</if>
+        </trim>
+    </insert>
+
+    <!-- 删除评论 -->
+    <delete id="deleteById">
+        delete from comment
+        where  id = #{id}
+    </delete>
+
+    <!-- 批量删除评论 -->
+    <delete id="deleteByIds" parameterType="long">
+        delete from comment where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!-- 查询所有评论 -->
+    <select id="selectAll" resultType="com.bx.entity.Comment">
+        select
+        comment.*, user.name as userName,  user.avatar as avatar
+        from comment
+        left join user
+        on comment.user_id = user.id
+        <where>
+            <if test="userName != null"> and user.name like concat('%', #{userName}, '%')</if>
+            <if test="fid != null"> and comment.fid  = #{fid}</if>
+            <if test="module != null"> and comment.module = #{module}</if>
+            <if test="rootId != null"> and comment.root_id = #{rootId}</if>
+        </where>
+        order by id desc
+    </select>
+
+    <!-- 根据用户查询评论 -->
+    <select id="selectForUser" resultType="com.bx.entity.Comment">
+        select
+        comment.*, user.name as userName,  user.avatar as avatar
+        from comment
+        left join user
+        on comment.user_id = user.id
+        <where>
+            <if test="fid != null"> and comment.fid  = #{fid}</if>
+            <if test="module != null"> and comment.module = #{module}</if>
+            and pid is null
+        </where>
+        order by comment.id desc
+    </select>
+
+    <!-- 根据ID查询评论详情 -->
+    <select id="selectById" resultType="com.bx.entity.Comment">
+        select
+        <include refid="Base_Column_List" />
+        from comment
+        where id = #{id}
+    </select>
+
+    <!-- 修改评论 -->
+    <update id="updateById" parameterType="com.bx.entity.Comment">
+        update comment
+        <set>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="pid != null">
+                pid = #{pid},
+            </if>
+            <if test="rootId != null">
+                root_id = #{rootId},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="fid != null">
+                fid = #{fid},
+            </if>
+            <if test="module != null">
+                module = #{module},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!-- 根据rootId查询评论 -->
+    <select id="selectAllByRootId" resultType="java.lang.Long">
+        select id
+        from comment
+        where root_id = #{id}
+    </select>
+
+</mapper>

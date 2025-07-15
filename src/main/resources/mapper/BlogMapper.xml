@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bx.mapper.BlogMapper">
+
+    <sql id="Base_Column_List">
+        id,title,content,descr,cover,tags,user_id,date,read_count,category_id
+    </sql>
+
+    <!-- 新增博客 -->
+    <insert id="insert" parameterType="com.bx.entity.Blog" useGeneratedKeys="true" keyProperty="id">
+        insert into blog
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="title != null">title,</if>
+            <if test="content != null">content,</if>
+            <if test="descr != null">descr,</if>
+            <if test="cover != null">cover,</if>
+            <if test="tags != null">tags,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="readCount != null">read_count,</if>
+            <if test="categoryId != null">category_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="title != null">#{title},</if>
+            <if test="content != null">#{content},</if>
+            <if test="descr != null">#{descr},</if>
+            <if test="cover != null">#{cover},</if>
+            <if test="tags != null">#{tags},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="readCount != null">#{readCount},</if>
+            <if test="categoryId != null">#{categoryId},</if>
+        </trim>
+    </insert>
+
+    <!-- 删除博客 -->
+    <delete id="deleteById">
+        delete
+        from blog
+        where id = #{id}
+    </delete>
+
+    <!-- 批量删除博客 -->
+    <delete id="deleteByIds">
+        delete from blog
+        where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!-- 查询所有博客 -->
+    <select id="selectAll" resultType="com.bx.entity.Blog">
+        select
+        blog.*, category.name as categoryName, user.name as userName
+        from blog
+        left join category
+        on blog.category_id = category.id
+        left join user
+        on blog.user_id = user.id
+        <where>
+            <if test="title != null">and blog.title like concat('%', #{title}, '%')</if>
+            <if test="categoryName != null">and category.name like concat('%', #{categoryName}, '%')</if>
+            <if test="userName != null">and user.name like concat('%', #{userName}, '%')</if>
+            <if test="userId != null">and user.id = #{userId}</if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <!-- 根据ID查询博客详情 -->
+    <select id="selectById" resultType="com.bx.entity.Blog">
+        select
+            blog.*, category.name as categoryName, user.name as userName
+        from blog
+                 left join category
+                           on blog.category_id = category.id
+                 left join user
+                           on blog.user_id = user.id
+        where blog.id = #{id}
+    </select>
+
+    <!-- 修改博客 -->
+    <update id="updateById" parameterType="com.bx.entity.Blog">
+        update blog
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="descr != null">
+                descr = #{descr},
+            </if>
+            <if test="cover != null">
+                cover = #{cover},
+            </if>
+            <if test="tags != null">
+                tags = #{tags},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="readCount != null">
+                read_count = #{readCount},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!-- 查询用户点赞的博客 -->
+    <select id="selectLike" resultType="com.bx.entity.Blog">
+        select blog.*, user.name as userName
+        from likes
+        left join blog
+        on likes.fid = blog.id
+        left join category
+        on blog.category_id = category.id
+        left join user
+        on blog.user_id = user.id
+        <where>
+            and likes.module = '博客'
+            <if test="title != null">and blog.title like concat('%', #{title}, '%')</if>
+            <if test="categoryName != null">and category.name like concat('%', #{categoryName}, '%')</if>
+            <if test="userName != null">and user.name like concat('%', #{userName}, '%')</if>
+            <if test="userId != null">and likes.user_id = #{userId}</if>
+        </where>
+        order by id desc
+    </select>
+
+    <!-- 查询用户收藏的博客 -->
+    <select id="selectCollect" resultType="com.bx.entity.Blog">
+        select blog.*, user.name as userName
+        from collect
+        left join blog
+        on collect.fid = blog.id
+        left join category
+        on blog.category_id = category.id
+        left join user
+        on blog.user_id = user.id
+        <where>
+            and collect.module = '博客'
+            <if test="title != null">and blog.title like concat('%', #{title}, '%')</if>
+            <if test="categoryName != null">and category.name like concat('%', #{categoryName}, '%')</if>
+            <if test="userName != null">and user.name like concat('%', #{userName}, '%')</if>
+            <if test="userId != null">and collect.user_id = #{userId}</if>
+        </where>
+        order by id desc
+    </select>
+
+    <!-- 查询用户评论的博客 -->
+    <select id="selectComment" resultType="com.bx.entity.Blog">
+        select blog.*, user.name as userName
+        from comment
+        left join blog
+        on comment.fid = blog.id
+        left join category
+        on blog.category_id = category.id
+        left join user
+        on blog.user_id = user.id
+        <where>
+            and comment.module = '博客'
+            <if test="title != null">and blog.title like concat('%', #{title}, '%')</if>
+            <if test="categoryName != null">and category.name like concat('%', #{categoryName}, '%')</if>
+            <if test="userName != null">and user.name like concat('%', #{userName}, '%')</if>
+            <if test="userId != null">and comment.user_id = #{userId}</if>
+        </where>
+        group by comment.fid , comment.module
+        order by id desc
+    </select>
+
+    <!-- 根据阅读数排序 -->
+    <select id="selectByReadCount" resultType="java.util.HashMap">
+        select id,title
+        from blog
+        order by read_count desc
+            limit 20
+    </select>
+
+    <!-- 根据分类ID查询博客 -->
+    <select id="selectByCategoryId" resultType="com.bx.entity.Blog">
+        SELECT id, title, read_count
+        FROM blog
+        WHERE
+        category_id = #{categoryId}
+        AND id != #{blogId}  <!-- 排除指定的博客ID -->
+        ORDER BY read_count DESC
+        LIMIT 5;
+    </select>
+
+    <!--    <select id="selectByTags" parameterType="java.util.Map" resultType="com.bx.entity.Blog">-->
+    <!--        SELECT id, title, read_count-->
+    <!--        FROM blog-->
+    <!--        WHERE-->
+    <!--        (-->
+    <!--        &#45;&#45; 使用 OR 连接多个 LIKE 条件，实现模糊匹配-->
+    <!--        &lt;!&ndash; 循环构建每个标签的匹配条件 &ndash;&gt;-->
+    <!--        <foreach item="tag" collection="tags" separator=" OR ">-->
+    <!--            tags LIKE CONCAT('%', #{tag}, '%')-->
+    <!--        </foreach>-->
+    <!--        )-->
+    <!--        AND id != #{blogId}  &lt;!&ndash; 排除指定的博客ID &ndash;&gt;-->
+    <!--        ORDER BY (-->
+    <!--        &#45;&#45; 根据标签匹配数量进行排序-->
+    <!--        &lt;!&ndash; 计算每个标签的匹配情况，按照匹配数量进行排序 &ndash;&gt;-->
+    <!--        <foreach item="tag" collection="tags" separator=" + ">-->
+    <!--            CASE WHEN tags LIKE CONCAT('%', #{tag}, '%') THEN 1 ELSE 0 END-->
+    <!--        </foreach>-->
+    <!--        ) DESC, read_count DESC-->
+    <!--        LIMIT 3;-->
+    <!--    </select>-->
+
+</mapper>

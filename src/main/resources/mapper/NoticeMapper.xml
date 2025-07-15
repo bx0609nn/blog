@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bx.mapper.NoticeMapper">
+
+    <sql id="Base_Column_List">
+        id,title,content,time,user
+    </sql>
+
+    <!-- 新增公告 -->
+    <insert id="insert" parameterType="com.bx.entity.Notice" useGeneratedKeys="true">
+        insert into notice
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="title != null">title,</if>
+            <if test="content != null">content,</if>
+            <if test="time != null">time,</if>
+            <if test="user != null">user,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="title != null">#{title},</if>
+            <if test="content != null">#{content},</if>
+            <if test="time != null">#{time},</if>
+            <if test="user != null">#{user},</if>
+        </trim>
+    </insert>
+
+    <!-- 删除公告 -->
+    <delete id="deleteById">
+        delete from notice
+        where  id = #{id}
+    </delete>
+
+    <!-- 批量删除公告 -->
+    <delete id="deleteByIds">
+        delete from notice
+        where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!-- 查询所有公告 -->
+    <select id="selectAll" resultType="com.bx.entity.Notice">
+        select
+        <include refid="Base_Column_List" />
+        from notice
+        <where>
+            <if test="id != null"> and id= #{id}</if>
+            <if test="title != null"> and title like concat('%', #{title}, '%')</if>
+            <if test="content != null"> and content= #{content}</if>
+            <if test="time != null"> and time= #{time}</if>
+            <if test="user != null"> and user= #{user}</if>
+        </where>
+        order by id desc
+    </select>
+
+    <!-- 根据ID查询公告详情 -->
+    <select id="selectById" resultType="com.bx.entity.Notice">
+        select
+        <include refid="Base_Column_List" />
+        from notice
+        where id = #{id}
+    </select>
+
+    <!-- 修改公告 -->
+    <update id="updateById" parameterType="com.bx.entity.Notice">
+        update notice
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="time != null">
+                time = #{time},
+            </if>
+            <if test="user != null">
+                user = #{user},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

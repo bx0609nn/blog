@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bx.mapper.CollectMapper">
+
+    <!-- 新增收藏 -->
+    <insert id="insert">
+        insert into collect (fid, user_id, module,create_time,update_time) values (#{fid}, #{userId}, #{module},#{createTime},#{updateTime})
+    </insert>
+
+    <!-- 删除收藏 -->
+    <delete id="deleteById">
+        delete from collect where id = #{id}
+    </delete>
+
+    <!-- 根据用户查询收藏 -->
+    <select id="selectUserCollect" resultType="com.bx.entity.Collect">
+        select * from collect where fid = #{fid} and user_id = #{userId} and module = #{module}
+    </select>
+
+    <!-- 根据关联ID和模块查询收藏 -->
+    <select id="selectByFidAndModule" resultType="java.lang.Integer">
+        select count(*) from collect where fid = #{fid} and module = #{module}
+    </select>
+
+</mapper>
