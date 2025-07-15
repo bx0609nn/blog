@@ -5,6 +5,9 @@ import com.bx.common.enums.RoleEnum;
 import com.bx.entity.*;
 import com.bx.mapper.BlogMapper;
 import com.bx.service.BlogService;
+import com.bx.service.CollectService;
+import com.bx.service.LikesService;
+import com.bx.service.UserService;
 import com.bx.utils.TokenUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -32,13 +35,13 @@ public class BlogServiceImpl implements BlogService {
     private BlogMapper blogMapper;
     
     @Resource
-    UserServiceImpl userService;
+    UserService userService;
     
     @Resource
-    LikesServiceImpl likesService;
+    LikesService likesService;
     
     @Resource
-    CollectServiceImpl collectService;
+    CollectService collectService;
 
     /**
      * @param blog 博客
@@ -201,7 +204,14 @@ public class BlogServiceImpl implements BlogService {
     public void updateReadCount(Long blogId) {
         blogMapper.updateReadCount(blogId);
     }
-    
+
+    /**
+     * @param blog 博客
+     * @param pageNum 当前页码
+     * @param pageSize 每页大小
+     * @return PageInfo
+     * @description 查询用户发布的博客
+     */
     public PageInfo<Blog> selectUser(Blog blog, Integer pageNum, Integer pageSize) {
         Account currentUser = TokenUtils.getCurrentUser();
         if (RoleEnum.USER.name().equals(currentUser.getRole())) {

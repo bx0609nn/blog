@@ -2,7 +2,7 @@ package com.bx.controller;
 
 import com.bx.common.Result;
 import com.bx.entity.Category;
-import com.bx.service.impl.CategoryServiceImpl;
+import com.bx.service.CategoryService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +20,7 @@ import java.util.List;
 public class CategoryController {
 
     @Resource
-    private CategoryServiceImpl categoryService;
+    private CategoryService categoryService;
 
     /**
      * @author lili

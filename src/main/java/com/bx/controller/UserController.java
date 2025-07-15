@@ -2,7 +2,7 @@ package com.bx.controller;
 
 import com.bx.common.Result;
 import com.bx.entity.User;
-import com.bx.service.impl.UserServiceImpl;
+import com.bx.service.UserService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +20,7 @@ import java.util.List;
 public class UserController {
 
     @Resource
-    private UserServiceImpl userService;
+    private UserService userService;
 
     /**
      * @author lili

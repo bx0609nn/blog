@@ -5,6 +5,9 @@ import com.bx.common.enums.RoleEnum;
 import com.bx.entity.*;
 import com.bx.mapper.ActivityMapper;
 import com.bx.service.ActivityService;
+import com.bx.service.ActivitySignService;
+import com.bx.service.CollectService;
+import com.bx.service.LikesService;
 import com.bx.utils.TokenUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -28,13 +31,13 @@ public class ActivityServiceImpl implements ActivityService {
     private ActivityMapper activityMapper;
 
     @Resource
-    ActivitySignServiceImpl activitySignService;
+    ActivitySignService activitySignService;
 
     @Resource
-    LikesServiceImpl likesService;
+    LikesService likesService;
 
     @Resource
-    CollectServiceImpl collectService;
+    CollectService collectService;
 
     /**
      * @param activity 活动

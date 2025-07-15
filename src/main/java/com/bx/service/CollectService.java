@@ -1,7 +1,8 @@
 package com.bx.service;
 
 import com.bx.entity.Collect;
-
+import java.time.LocalDateTime;
+import com.bx.entity.Account;
 
 /**
  * @author lili
@@ -21,9 +22,9 @@ public interface CollectService {
      * @param fid 关联ID
      * @param module 模块名称
      * @return Collect
-     * @description 查询当前用户是否收藏过
+     * @description 查询用户ID和fid和模块查询收藏
      */
-    public Collect selectUserCollect(Long  fid, String module);
+    Collect selectUserCollect(Long  fid, String module);
 
     /**
      * @param fid 关联ID
@@ -31,6 +32,5 @@ public interface CollectService {
      * @return int
      * @description 根据关联ID和模块查询收藏数量
      */
-    public int selectByFidAndModule(Long  fid, String module);
-
+    int selectByFidAndModule(Long  fid, String module);
 }

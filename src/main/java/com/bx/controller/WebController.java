@@ -6,8 +6,8 @@ import com.bx.common.Result;
 import com.bx.common.enums.ResultCodeEnum;
 import com.bx.common.enums.RoleEnum;
 import com.bx.entity.Account;
-import com.bx.service.impl.AdminServiceImpl;
-import com.bx.service.impl.UserServiceImpl;
+import com.bx.service.AdminService;
+import com.bx.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -22,10 +22,10 @@ import javax.annotation.Resource;
 public class WebController {
 
     @Resource
-    private AdminServiceImpl adminService;
+    private AdminService adminService;
 
     @Resource
-    private UserServiceImpl userService;
+    private UserService userService;
 
     /**
      * @author lili

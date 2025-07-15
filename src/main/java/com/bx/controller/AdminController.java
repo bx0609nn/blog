@@ -2,7 +2,7 @@ package com.bx.controller;
 
 import com.bx.common.Result;
 import com.bx.entity.Admin;
-import com.bx.service.impl.AdminServiceImpl;
+import com.bx.service.AdminService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +20,7 @@ import java.util.List;
 public class AdminController {
 
     @Resource
-    private AdminServiceImpl adminService;
+    private AdminService adminService;
 
     /**
      * @author lili

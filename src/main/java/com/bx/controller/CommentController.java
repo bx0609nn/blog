@@ -2,7 +2,7 @@ package com.bx.controller;
 
 import com.bx.common.Result;
 import com.bx.entity.Comment;
-import com.bx.service.impl.CommentServiceImpl;
+import com.bx.service.CommentService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +21,7 @@ import java.util.List;
 public class CommentController {
 
     @Resource
-    private CommentServiceImpl commentService;
+    private CommentService commentService;
 
     /**
      * @author lili

@@ -2,7 +2,7 @@ package com.bx.controller;
 
 import com.bx.common.Result;
 import com.bx.entity.Blog;
-import com.bx.service.impl.BlogServiceImpl;
+import com.bx.service.BlogService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +22,7 @@ import java.util.Set;
 public class BlogController {
 
     @Resource
-    private BlogServiceImpl blogService;
+    private BlogService blogService;
 
     /**
      * @author lili

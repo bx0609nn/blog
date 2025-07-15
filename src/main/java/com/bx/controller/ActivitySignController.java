@@ -2,7 +2,7 @@ package com.bx.controller;
 
 import com.bx.common.Result;
 import com.bx.entity.ActivitySign;
-import com.bx.service.impl.ActivitySignServiceImpl;
+import com.bx.service.ActivitySignService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +20,7 @@ import java.util.List;
 public class ActivitySignController {
 
     @Resource
-    ActivitySignServiceImpl activitySignService;
+    ActivitySignService activitySignService;
 
     /**
      * @author lili

@@ -2,7 +2,7 @@ package com.bx.controller;
 
 import com.bx.common.Result;
 import com.bx.entity.Activity;
-import com.bx.service.impl.ActivityServiceImpl;
+import com.bx.service.ActivityService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +21,7 @@ import java.util.List;
 public class ActivityController {
 
     @Resource
-    private ActivityServiceImpl activityService;
+    private ActivityService activityService;
 
     /**
      * @author lili

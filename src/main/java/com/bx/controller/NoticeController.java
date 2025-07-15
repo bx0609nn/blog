@@ -2,7 +2,7 @@ package com.bx.controller;
 
 import com.bx.common.Result;
 import com.bx.entity.Notice;
-import com.bx.service.impl.NoticeServiceImpl;
+import com.bx.service.NoticeService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +20,7 @@ import java.util.List;
 public class NoticeController {
 
     @Resource
-    private NoticeServiceImpl noticeService;
+    private NoticeService noticeService;
 
     /**
      * @author lili

@@ -88,6 +88,15 @@ public interface BlogService {
 
     /**
      * @param blog 博客
+     * @param pageNum 当前页码
+     * @param pageSize 每页大小
+     * @return PageInfo
+     * @description 查询用户发布的博客
+     */
+    public PageInfo<Blog> selectUser(Blog blog, Integer pageNum, Integer pageSize);
+
+    /**
+     * @param blog 博客
      * @param pageNum 页码
      * @param pageSize 页面大小
      * @return PageInfo

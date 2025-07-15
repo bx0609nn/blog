@@ -2,7 +2,7 @@ package com.bx.controller;
 
 import com.bx.common.Result;
 import com.bx.entity.Collect;
-import com.bx.service.impl.CollectServiceImpl;
+import com.bx.service.CollectService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +21,7 @@ import javax.annotation.Resource;
 public class CollectController {
 
     @Resource
-    CollectServiceImpl collectService;
+    CollectService collectService;
 
     /**
      * @author lili
