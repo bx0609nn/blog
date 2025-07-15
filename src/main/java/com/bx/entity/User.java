@@ -63,10 +63,7 @@ public class User extends Account {
     // 更新时间
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
-    
-    
-    
-    
+
     // 用户发布的博客数
     private Integer blogCount;
     
@@ -75,6 +72,5 @@ public class User extends Account {
     
     // 用户收藏数
     private Integer collectCount;
-    
-    
+
 }

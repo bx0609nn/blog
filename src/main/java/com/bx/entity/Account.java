@@ -40,7 +40,5 @@ public class Account {
     
     // token
     private String token;
-    
-    
-   
+
 }

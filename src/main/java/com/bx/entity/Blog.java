@@ -71,7 +71,6 @@ public class Blog {
     
     // 是否被当前登录的用户收藏
     private Boolean userCollect;
-    
 
     @Override
     public boolean equals(Object o) {
@@ -85,4 +84,5 @@ public class Blog {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
 }

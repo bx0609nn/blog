@@ -51,5 +51,4 @@ public class Comment {
     // 子评论
     private List<Comment> children;
 
-  
 }

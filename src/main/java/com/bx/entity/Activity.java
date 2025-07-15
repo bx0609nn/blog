@@ -54,8 +54,6 @@ public class Activity {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
     
-    
-    
     // 活动是否结束
     private Boolean isEnd;
     
@@ -76,10 +74,5 @@ public class Activity {
     
     // 用户是否收藏
     private Boolean isCollect;
-
-
-    
-
-
 
 }

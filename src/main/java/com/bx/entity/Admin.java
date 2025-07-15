@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Admin extends Account implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     // 管理员id
@@ -49,6 +50,5 @@ public class Admin extends Account implements Serializable {
     // 更新时间
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
-    
-   
+
 }

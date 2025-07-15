@@ -32,9 +32,7 @@ public class ActivitySign {
     // 更新时间
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
-    
-    
-    
+
     // 用户名称
     private String userName;
     

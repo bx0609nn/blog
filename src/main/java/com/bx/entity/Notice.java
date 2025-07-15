@@ -30,6 +30,4 @@ public class Notice implements Serializable {
     /** 创建人 */
     private String user;
 
-    
-
 }
