@@ -30,6 +30,7 @@ public class ActivityController {
      * @return Result
      * @description 新增活动
      */
+    @ApiOperation
     @PostMapping("/add")
     public Result add(@RequestBody Activity activity) {
         activityService.add(activity);
